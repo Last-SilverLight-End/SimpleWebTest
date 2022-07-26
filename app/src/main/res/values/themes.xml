@@ -12,5 +12,10 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
+    </style>
+    <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
+
+        <item name="colorControlActivated">@color/click_orange</item>
     </style>
 </resources>
