@@ -10,6 +10,8 @@
         android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        android:elevation="6dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -31,17 +33,16 @@
             android:id="@+id/addressPasteBar"
             android:layout_width="0dp"
             android:layout_height="40dp"
+            android:background="@drawable/shape_address_bar"
             android:imeOptions="actionDone"
             android:importantForAutofill="no"
             android:inputType="textUri"
-            android:background="@drawable/shape_address_bar"
-            android:textSize="14sp"
             android:paddingHorizontal="16dp"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/homeButton"
             app:layout_constraintRight_toLeftOf="@id/backButton"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <ImageButton
@@ -69,8 +70,8 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <WebView
-        android:id="@+id/webPageView"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refreshLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -78,6 +79,12 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-    </WebView>
+        <WebView
+            android:id="@+id/webPageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </WebView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

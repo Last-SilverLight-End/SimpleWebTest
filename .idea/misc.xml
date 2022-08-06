@@ -3,12 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Changgeun/AndroidStudioProjects/SimpleWebTest/app/src/main/res/layout/activity_main.xml" value="0.246875" />
         <entry key="..\:/Users/xnote/AndroidStudioProjects/SimpleWebTest/app/src/main/res/drawable/shape_address_bar.xml" value="0.19166666666666668" />
         <entry key="..\:/Users/xnote/AndroidStudioProjects/SimpleWebTest/app/src/main/res/layout/activity_main.xml" value="0.1" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
