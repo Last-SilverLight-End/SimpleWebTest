@@ -7,12 +7,11 @@ import android.os.Bundle
 import android.os.Message
 import android.util.Log
 import android.view.inputmethod.EditorInfo
-import android.webkit.WebResourceRequest
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.webkit.*
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.core.widget.ContentLoadingProgressBar
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
 class MainActivity : AppCompatActivity() {
@@ -22,6 +21,9 @@ class MainActivity : AppCompatActivity() {
     }
     private val addressBar: EditText by lazy {
         findViewById(R.id.addressPasteBar)
+    }
+    private val progressBar : ContentLoadingProgressBar by lazy {
+        findViewById(R.id.progressBar)
     }
 
     private val goHomeButton : ImageButton by lazy {
@@ -37,6 +39,7 @@ class MainActivity : AppCompatActivity() {
     private val refreshLayout : SwipeRefreshLayout by lazy {
         findViewById(R.id.refreshLayout)
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +64,7 @@ class MainActivity : AppCompatActivity() {
     private fun initViews() {
         webView.apply{
             webViewClient = WebViewClient()
+            webChromeClient = WebChromeClient()
             settings.javaScriptEnabled = true
             loadUrl(DEFAULT_URL)
         }
@@ -76,8 +80,14 @@ class MainActivity : AppCompatActivity() {
         var addressPlus = ""
         addressBar.setOnEditorActionListener { addressInput, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
+                val loadingUrl = addressInput.text.toString()
+                if(URLUtil.isNetworkUrl(loadingUrl)){
+                    webView.loadUrl(loadingUrl)
+                }else{
+                    webView.loadUrl("http://$loadingUrl")
+                }
 
-                if (addressInput.text.toString().startsWith("https://www.")) {
+                /*if (addressInput.text.toString().startsWith("https://www.")) {
 
                     if (addressInput.text.toString().endsWith(".com")) {
                         addressPlus = addressInput.text.toString()
@@ -90,7 +100,7 @@ class MainActivity : AppCompatActivity() {
                     } else {
                         addressPlus = "https://www." + addressInput.text.toString() + ".com"
                     }
-                }
+                }*/
 
                 webView.loadUrl(addressPlus)
             }
@@ -119,6 +129,7 @@ class MainActivity : AppCompatActivity() {
             if(refreshLayout.isRefreshing) {
                 Toast.makeText(this@MainActivity, "로딩시작", Toast.LENGTH_SHORT).show()
             }
+            progressBar.show()
         }
         // 로딩 중일때 + 다른 url 넘어갈때
         override fun shouldOverrideUrlLoading(
@@ -134,6 +145,18 @@ class MainActivity : AppCompatActivity() {
 
 
             refreshLayout.isRefreshing = false
+            progressBar.hide()
+            goBackButton.isEnabled = webView.canGoBack()
+            goFrontButton.isEnabled = webView.canGoForward()
+            addressBar.setText(url)
+        }
+    }
+
+    inner class WebChromeClient : android.webkit.WebChromeClient(){
+        override fun onProgressChanged(view: WebView?, newProgress: Int) {
+            super.onProgressChanged(view, newProgress)
+
+            progressBar.progress = newProgress
         }
     }
 

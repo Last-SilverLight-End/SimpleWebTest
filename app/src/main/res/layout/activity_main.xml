@@ -36,6 +36,7 @@
             android:background="@drawable/shape_address_bar"
             android:imeOptions="actionDone"
             android:importantForAutofill="no"
+            android:selectAllOnFocus="true"
             android:inputType="textUri"
             android:paddingHorizontal="16dp"
             android:textSize="14sp"
@@ -83,8 +84,18 @@
             android:id="@+id/webPageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
         </WebView>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/progressBar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
